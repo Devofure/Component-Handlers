@@ -1,0 +1,154 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <import type="com.devofure.ch.list.viewHolder.ClickListenerWrapper" />
+
+        <variable
+            name="clickHandler"
+            type="com.devofure.ch.list.viewHolder.ItemClickHandler" />
+
+        <variable
+            name="settings"
+            type="com.devofure.ch.list.viewHolder.Settings" />
+
+        <variable
+            name="itemWrapper"
+            type="com.devofure.ch.list.viewHolder.ItemWrapper&lt;com.devofure.ch.list.model.Item>" />
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:minHeight="200dp"
+        android:id="@+id/item_vertical_root"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:minHeight="?attr/actionBarSize"
+            android:onClick="@{(view) -> clickHandler.onItemClick(view, itemWrapper)}">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/item_horizontal_image"
+                android:layout_width="0dp"
+                android:layout_height="129dp"
+                android:maxWidth="64dp"
+                android:maxHeight="64dp"
+                android:scaleType="fitXY"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:srcCompat="@tools:sample/avatars" />
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:text="@{itemWrapper.item.title}"
+                android:textStyle="bold"
+                app:autoSizeMinTextSize="14sp"
+                app:autoSizeTextType="uniform"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/item_horizontal_image"
+                app:layout_goneMarginStart="@dimen/item_margin"
+                tools:text="@tools:sample/cities" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/extraValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="12dp"
+                app:autoSizeTextType="uniform"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/imageView"
+                app:layout_constraintTop_toBottomOf="@+id/description"
+                app:layout_constraintVertical_bias="1.0"
+                tools:text="@tools:sample/date/ddmmyy" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/description"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/item_margin"
+                android:maxLines="2"
+                android:text="@{itemWrapper.item.description}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/title"
+                app:layout_constraintTop_toBottomOf="@+id/title"
+                app:layout_goneMarginBottom="@dimen/item_margin"
+                tools:text="@tools:sample/lorem" />
+
+            <androidx.appcompat.widget.AppCompatRatingBar
+                android:id="@+id/ratingBar"
+                style="?android:attr/ratingBarStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="15dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="12dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:isIndicator="true"
+                android:numStars="5"
+                android:visibility="@{settings.showStars ? View.VISIBLE : View.GONE}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/extraValue"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/description"
+                app:layout_constraintVertical_bias="1.0"
+                tools:rating="4" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/dots_menu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/item_margin"
+                android:layout_marginBottom="8dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:foregroundGravity="bottom"
+                android:onClick="@{(view) -> ClickListenerWrapper.onItemMenuClick(view, itemWrapper, settings, clickHandler)}"
+                android:padding="4dp"
+                android:visibility="@{settings.itemMenu == 0 ? View.GONE : View.VISIBLE}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/description"
+                app:layout_constraintVertical_bias="1.0"
+                app:srcCompat="@drawable/ic_va_more_vert" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:foregroundGravity="bottom"
+                android:onClick="@{(view) -> clickHandler.onItemHeartClick(view, itemWrapper)}"
+                android:padding="4dp"
+                android:tint="@{settings.heartColor == 0 ? @color/placeholder_heart : settings.heartColor}"
+                android:visibility="@{settings.showHeart ? View.VISIBLE : View.GONE}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/dots_menu"
+                app:layout_constraintTop_toBottomOf="@+id/description"
+                app:layout_constraintVertical_bias="1.0"
+                app:srcCompat="@drawable/ic_va_favorite"
+                tools:tint="@color/placeholder_heart" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+</layout>
