@@ -1,20 +1,18 @@
-package com.devofure.ch.list;
+package com.devofure.ch.example.list;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 
-import com.devofure.ch.R;
 import com.devofure.ch.core.BaseActivity;
+import com.devofure.ch.detail.ComponentDetailFragment;
+import com.devofure.ch.example.R;
+import com.devofure.ch.example.detail.SampleDetailFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
-import androidx.appcompat.widget.Toolbar;
-
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.ActionBar;
-
-import android.view.MenuItem;
 
 public class ComponentDetailActivity extends BaseActivity {
 
@@ -27,10 +25,10 @@ public class ComponentDetailActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_component_detail);
+        setContentView(com.devofure.ch.example.R.layout.activity_component_detail);
         setupToolbar();
 
-        FloatingActionButton fab = findViewById(R.id.fab);
+        FloatingActionButton fab = findViewById(com.devofure.ch.example.R.id.fab);
         fab.setOnClickListener(view -> Snackbar.make(
                 view,
                 "Replace with your own detail action",
@@ -42,7 +40,7 @@ public class ComponentDetailActivity extends BaseActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
         if (savedInstanceState == null) {
-            ComponentDetailFragment fragment = ComponentDetailFragment.newInstance(getIntent().getStringExtra(ComponentDetailFragment.ARG_ITEM_ID));
+            ComponentDetailFragment fragment = ComponentDetailFragment.newInstance(getIntent().getStringExtra(SampleDetailFragment.ARG_ITEM_ID), SampleDetailFragment.class);
             getSupportFragmentManager()
                     .beginTransaction()
                     .add(R.id.component_detail_container, fragment)

@@ -2,14 +2,12 @@ package com.devofure.ch.list.adapter;
 
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
 import com.devofure.ch.list.R;
 import com.devofure.ch.list.model.Item;
 import com.devofure.ch.list.viewHolder.ItemClickHandler;
 import com.devofure.ch.list.viewHolder.ItemViewHolder;
 import com.devofure.ch.list.viewHolder.Settings;
-import com.devofure.ch.list.databinding.ItemHorizontalBinding;
 
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;

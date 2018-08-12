@@ -1,18 +1,19 @@
-package com.devofure.ch.list;
+package com.devofure.ch.example.list;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.devofure.ch.SourceContent;
 import com.devofure.ch.core.BaseActivity;
+import com.devofure.ch.detail.ComponentDetailFragment;
+import com.devofure.ch.example.R;
+import com.devofure.ch.example.list.model.MockObject;
 import com.devofure.ch.list.adapter.RecyclerListAdapter;
 import com.devofure.ch.list.model.Item;
-import com.devofure.ch.list.model.MockObject;
 import com.devofure.ch.list.viewHolder.ItemClickSimpleHandler;
 import com.devofure.ch.list.viewHolder.ItemWrapper;
 import com.devofure.ch.list.viewHolder.Settings;
-import com.devofure.ch.R;
-import com.devofure.ch.SourceContent;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
@@ -27,10 +28,10 @@ public class ComponentListActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_component_list);
+        setContentView(com.devofure.ch.example.R.layout.activity_component_list);
 
-        RecyclerView recyclerView = findViewById(R.id.component_list);
-        mTwoPane = findViewById(R.id.component_detail_container) != null;
+        RecyclerView recyclerView = findViewById(com.devofure.ch.example.R.id.component_list);
+        mTwoPane = findViewById(com.devofure.ch.example.R.id.component_detail_container) != null;
 
         setupToolbar(getTitle().toString());
         setupRecyclerView(recyclerView);
@@ -46,9 +47,9 @@ public class ComponentListActivity extends BaseActivity {
     }
 
     private RecyclerListAdapter<Item> getRecyclerAdapter() {
-        return RecyclerListAdapter.withHorizontal(getDiffCallback());
-//                .setItemSettings(getItemSettings())
-//                .setItemClickHandler(getItemClickListenerHandler());
+        return RecyclerListAdapter.withHorizontal(getDiffCallback())
+                .setItemSettings(getItemSettings())
+                .setItemClickHandler(getItemClickListenerHandler());
     }
 
     private ItemClickSimpleHandler<ItemWrapper<MockObject>> getItemClickListenerHandler() {
@@ -56,7 +57,7 @@ public class ComponentListActivity extends BaseActivity {
             @Override
             public void onItemClick(View view, ItemWrapper<MockObject> item) {
                 if (mTwoPane) {
-                    ComponentDetailFragment fragment = ComponentDetailFragment.newInstance(String.valueOf(item.getIndex()));
+                    ComponentDetailFragment fragment = ComponentDetailFragment.newInstance(String.valueOf(item.getIndex()), ComponentDetailFragment.class);
                     getSupportFragmentManager()
                             .beginTransaction()
                             .replace(R.id.component_detail_container, fragment)

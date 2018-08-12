@@ -1,7 +1,5 @@
 package com.devofure.ch.core;
 
-import com.devofure.ch.R;
-
 import androidx.annotation.IdRes;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
